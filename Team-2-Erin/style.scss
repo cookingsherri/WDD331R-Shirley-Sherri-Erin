@@ -1,0 +1,478 @@
+@use "variables" as *; //this puts all the variables in the global namespace.
+@use "atoms";
+@use "molecules";
+@use "organisms" as o;
+
+@mixin skew(){
+  transform: skewX(-5deg);
+}
+@mixin skew-back(){
+  transform: skewX(5deg);
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  background-color: $background-color;
+}
+body {
+  // font-family: $fonts-body;
+  // font-size: 50%;
+  color: $text-dark;
+  margin-left: 10px;
+  padding: 1em;
+  // background-attachment: fixed;
+  // background-position:50% 150%;
+  //@include skew;
+  height:100vh;
+}
+
+//SW -  change title to Retro Garden
+h1 {
+  visibility: hidden;
+}
+h1:before {
+  visibility: visible;
+  content: "";
+  background: url(images/retro-logo-final.svg) no-repeat;
+  // position: absolute;
+  display: block;
+  padding-top: 40%;
+  padding-right: 50%;
+  width: 40%;
+  margin-left: 5rem;
+  margin-top: 3rem;
+  z-index: -100;
+}
+.summary {
+  color: black;
+  a {
+    color: black;
+  }
+}
+
+/* sidebar styling */
+.wrapper {
+  position: sticky;
+  height: 100vh;
+}
+
+aside.sidebar{
+  width:250px;
+  height:610px; //right height for full screen, but effects small screen.
+  z-index:2;
+}
+
+.sidebar {
+  display: grid;
+  border-radius: 15px;
+  height: 100vh; //70%
+  position: sticky;
+  top: 25%;
+  bottom: 5%;
+  background: #f7b09c;
+  box-shadow: 10px 10px darken(#f7b09c, 5);
+  width: 100%;
+  //@include skew-back;
+  font-size: 20px;
+  & ul{
+    margin-left: 0px;
+  }
+  & li {
+    text-decoration: none;
+    list-style-type: none;
+    color: black;
+    text-align: left;
+    a{
+      border-bottom:none;
+    }
+    &:hover{
+      transform:scale(1.12);
+    }
+  }
+}
+div.wrapper{
+  right:0px;
+  nav ul{
+    padding-inline-start: 10px;
+  }
+  ul{
+    padding-inline-start: 10px;
+  }
+  h3{
+    padding-inline-start: 10px;
+  }
+}
+
+.design-selection,
+.design-archives,
+.zen-resources {
+  margin: 20px;
+  border-radius: 15px;
+  padding: 5px;
+  width: 95%;
+  max-height: 75%;
+  position: relative;
+  left: -35px;
+  font-size: 16px;
+}
+//SW I think we can do this with a mixin
+.design-selection {
+  display:flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  background: #e8b665;
+  box-shadow: 10px 10px darken(#e8b665, 5);
+  height:3fr;
+  line-height: 1.1em;
+}
+.design-archives {
+  display:flex;
+  flex-direction:column;
+  background: #bdcec6;
+  box-shadow: 10px 10px darken(#bdcec6, 5);
+  height:1fr;
+  line-height: 1.1em;
+}
+.zen-resources {
+  display:flex;
+  flex-direction:column;
+  background: #edcabd;
+  box-shadow: 10px 10px darken(#edcabd, 5);
+  height:2fr;
+  line-height: 1.1em;
+}
+
+/* background container for content*/
+html::after {
+  content: "";
+  // background: url(/images/background-img) no-repeat center;
+  display: block;
+  background-color: whitesmoke;
+  transform: rotate(5deg);
+  height: 100vh;
+  width: 70%;
+  position: sticky;
+  left: 2rem;
+  z-index: -30;
+  grid-row-start: 2
+  
+  // margin-top:0;
+} 
+
+
+//SW Grid Layout
+.page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap:20px;
+  font-size: 85%;
+  color: black;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: transparent;
+}
+// .explanation{
+//   grid-area: 1;
+// }
+.participation,
+.benefits{
+  grid-area: 2;
+}
+.requirements{
+  grid-area: 3;
+}
+.main-supporting{
+  display:grid;
+  grid-template-rows:1fr 1fr 1fr;
+  grid-template-areas:
+  " 1 "
+  " 2 "
+  " 3 "; 
+}
+header {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  position:fixed;
+  top:0;
+  right:0;
+  left:0;
+  // width: 100%;
+  max-height: 17rem;;
+  background: whitesmoke;
+  z-index:2;
+  //@include skew-back;
+  padding-top: 3rem;
+  margin: 0px;
+  h2{
+    position:absolute;
+    top: 4.5rem;
+    left: 5rem;
+  }
+}
+// .preamble, .main-supporting{
+//   //@include skew-back;
+// }
+
+section#zen-intro {
+  grid-column: 1/2;
+}
+div#zen-supporting {
+  grid-column: 1/2;
+}
+div .preamble h3 {
+  grid-area: h3;
+}
+
+div .preamble p:nth-of-type(1) {
+  grid-area: p1;
+}
+div .preamble p:nth-of-type(2) {
+  grid-area: p2;
+}
+div .preamble p:nth-of-type(3) {
+  grid-area: p3;
+}
+.summary{
+  margin-top:265px;
+}
+/*.preamble {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  display: grid;
+  grid-template-columns: 60% 30%; //was 1fr 1fr plus rows of 1fr 1fr 1fr
+  grid-gap:15px;
+  grid-template-areas:
+    "p1 h3"
+    "p2 h3 "
+    "p3 h3 ";
+} */
+.preamble h3{
+  float:right;
+}
+.explanation h3{
+  float:left;
+}
+.participation h3{
+  float:right;
+}
+.requirements h3{
+  float:left;
+}
+
+// footer positioning and design
+footer {
+  display: flex;
+  font-size: 2.5em;
+  position: absolute;
+  top:15%;
+  right:10%;
+  z-index:2;
+  .zen-validate-html,
+  .zen-validate-css,
+  .zen-license,
+  .zen-accessibility,
+  .zen-github{
+    display:flex;
+    padding:20px;
+    border-bottom: none;
+    transform: rotate(25deg);
+    &:hover{
+      transform:scale(1.25) rotate(25deg);
+    }
+  }
+}
+.zen-validate-html{
+  position:fixed;
+  top: 10;
+  right:44%;
+}
+.zen-validate-css{
+  position:fixed;
+  top: 10;
+  right:36%;
+}
+.zen-license{
+  position:fixed;
+  top: 10;
+  right:28%;
+}
+.zen-accessibility{
+  position:fixed;
+  top: 10;
+  right:18%;
+}
+.zen-github{
+  position:fixed;
+  top: 10;
+  right:10%;
+}
+
+aside {
+  grid-column: 3 / span 1;
+  grid-row-start: 1;
+  margin-top: 30px;
+  position: absolute;
+  top:40%;
+  height: 100vh;
+}
+
+/* designated footer*/
+.requirements p:last-child {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  background: white;
+  padding: 35px;
+  width: 100%;
+}
+// hide h3 for the large screen
+.intro h3,
+.explanation h3,
+.participation h3,
+.benefits h3,
+.requirements h3{
+  visibility:hidden;
+}
+// adding content before h3 and including images
+.intro h3::before,
+.explanation h3::before,
+.participation h3::before,
+.requirements h3::before {
+  visibility:visible;
+  content: "";
+  background: url(/images/3.png) no-repeat center;
+  padding: 180px 20px 20px;
+  width:350px;
+  height:215px;
+  display: block;
+  margin-bottom: 10px;
+  margin-right:30px;
+  box-shadow: 5px 10px 18px #888888;
+  z-index:0;
+  transform: rotateX(40deg) skewY(2deg) skewX(-2deg);
+  //@include skew-back;
+}
+.explanation h3::before,
+.requirements h3::before{
+  transform: rotateX(-40deg) skewY(-2deg) skewX(2deg);
+}
+
+.intro h3:before{
+  background: url(/images/1.png) no-repeat center;
+}
+.explanation h3::before{
+  background: url(/images/2.png) no-repeat center;
+}
+.participation h3::before{
+  background: url(/images/3.png) no-repeat center;
+}
+.requirements h3::before{
+  background: url(/images/4.png) no-repeat center;
+}
+
+
+@media (max-width: 800px) {
+  h1:before {
+    padding-top: 150px;
+    padding-right: 205px;
+  }
+  header{
+    height:200px;
+    h2{
+      top:200px;
+    }
+  }
+  footer{
+    top:27%;
+    left:10%;
+    font-size:1.5em;
+    .zen-validate-html,
+    .zen-validate-css,
+    .zen-license,
+    .zen-accessibility,
+    .zen-github{
+      transform: rotate(0deg);
+      padding:5px;
+      &:hover{
+        transform:scale(1.25) rotate(0deg);
+      }
+  }
+}
+.zen-validate-html{
+  top: 2%;
+  right:5%;
+}
+.zen-validate-css{
+  top: 6%;
+  right:5%;
+}
+.zen-license{
+  top: 10%;
+  right:5%;
+}
+.zen-accessibility{
+  top: 14%;
+  right:5%;
+}
+ .zen-github{
+  top: 18%;
+  right:5%;
+ }
+  .summary{
+    margin-top:215px;
+  }
+  .preamble {
+    display: block;
+  }
+  .intro h3,
+  .explanation h3,
+  .participation h3,
+  .benefits h3,
+  .requirements h3{
+    visibility:visible;
+  }
+  .intro h3::before{
+    background: url(/images/parallax1.png) no-repeat center;
+    box-shadow: none;
+  }
+  .explanation h3::before{
+    background: url(/images/parallax2.png) no-repeat center;
+    box-shadow: none;
+  }
+  .participation h3::before{
+    background: url(/images/parallax3.png) no-repeat center;
+    box-shadow: none;
+  }
+  .requirements h3::before{
+    background: url(/images/parallax4.png) no-repeat center;
+    box-shadow: none;
+  }
+
+  .intro h3:before,
+  .explanation h3:before,
+  .participation h3::before,
+  .requirements h3::before,
+   footer:before {
+    //  Create the parallax scrolling effect
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotateX(0deg) skewY(0deg) skewX(0deg);
+    width:100%;
+  }
+  aside {
+    grid-column: 1/2;
+    grid-row: 3;
+  }
+ /* aside.sidebar{
+    position:absolute;
+    top:0%;
+    right:-270px;
+    transform: translate3d(-260px, 0, 0);
+    transition: transform 0.35s;
+} */
+}
